@@ -10,6 +10,7 @@ doctest = false
 [dev-dependencies]
 tempdir = "0.3.7"
 criterion = "0.3"
+actix-rt = "1"
 
 
 [dependencies]
