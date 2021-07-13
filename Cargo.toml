@@ -49,3 +49,6 @@ bench = false
 
 [workspace]
 members = ["lib/*"]
+
+[patch.crates-io]
+openblas-src = { path = "/home/gilcu2/prog/rust/openblas-src/openblas-src" }
