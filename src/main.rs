@@ -18,12 +18,7 @@ use crate::api::search_api::search_points;
 use crate::api::update_api::update_points;
 use crate::common::helpers::create_search_runtime;
 use crate::settings::Settings;
-
-#[derive(Serialize, Deserialize)]
-pub struct VersionInfo {
-    pub title: String,
-    pub version: String,
-}
+use qdrant::{VersionInfo, index};
 
 fn json_error_handler(err: error::JsonPayloadError, _req: &HttpRequest) -> error::Error {
     use actix_web::error::JsonPayloadError;
@@ -39,13 +34,6 @@ fn json_error_handler(err: error::JsonPayloadError, _req: &HttpRequest) -> error
     error::InternalError::from_response(err, resp).into()
 }
 
-#[get("/")]
-pub async fn index() -> impl Responder {
-    HttpResponse::Ok().json(VersionInfo {
-        title: "qdrant - vector search engine".to_string(),
-        version: env!("CARGO_PKG_VERSION").to_string(),
-    })
-}
 
 fn main() -> std::io::Result<()> {
     let settings = Settings::new().expect("Can't read config.");
@@ -86,12 +74,12 @@ fn main() -> std::io::Result<()> {
                 .service(search_points)
                 .service(recommend_points)
         })
-        // .workers(4)
-        .bind(format!(
-            "{}:{}",
-            settings.service.host, settings.service.port
-        ))?
-        .run()
-        .await
+            // .workers(4)
+            .bind(format!(
+                "{}:{}",
+                settings.service.host, settings.service.port
+            ))?
+            .run()
+            .await
     })
 }

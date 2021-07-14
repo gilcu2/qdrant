@@ -1,3 +1,7 @@
+pub mod settings;
+pub mod common;
+pub mod api;
+
 use actix_web::{error, get, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 
