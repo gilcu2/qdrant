@@ -1,7 +1,7 @@
 use actix_web::{error, get, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct VersionInfo {
     pub title: String,
     pub version: String,
